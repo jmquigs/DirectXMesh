@@ -298,3 +298,18 @@ HRESULT DirectX::ComputeTangentFrame(
 
     return ComputeTangentFrameImpl<uint32_t>(indices, nFaces, positions, normals, texcoords, nVerts, nullptr, tangents, nullptr);
 }
+
+extern "C" {
+    __declspec(dllexport) HRESULT __stdcall DirectX_ComputeTangentFrame_32TB
+    (const uint32_t* indices,
+        size_t nFaces,
+        const XMFLOAT3* positions,
+        const XMFLOAT3* normals, const XMFLOAT2* texcoords,
+        size_t nVerts,
+        XMFLOAT3* tangents,
+        XMFLOAT3* bitangents)
+    {
+        return DirectX::ComputeTangentFrame(indices, nFaces, positions, normals, texcoords, nVerts, tangents, bitangents);
+    }
+}
+

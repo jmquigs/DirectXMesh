@@ -331,3 +331,16 @@ HRESULT DirectX::ComputeNormals(
         return ComputeNormalsWeightedByAngle<uint32_t>(indices, nFaces, positions, nVerts, cw, normals);
     }
 }
+
+extern "C" {
+    __declspec(dllexport) HRESULT __stdcall DirectX_ComputeNormals_32(const uint32_t* indices,
+        size_t nFaces, const XMFLOAT3* positions, size_t nVerts, unsigned long flags, XMFLOAT3* normals)
+    {
+        return DirectX::ComputeNormals(indices, nFaces, positions, nVerts, (CNORM_FLAGS)flags, normals);
+    }
+    __declspec(dllexport) HRESULT __stdcall DirectX_ComputeNormals_16(const uint16_t* indices,
+        size_t nFaces, const XMFLOAT3* positions, size_t nVerts, unsigned long flags, XMFLOAT3* normals)
+    {
+        return DirectX::ComputeNormals(indices, nFaces, positions, nVerts, (CNORM_FLAGS)flags, normals);
+    }
+}
